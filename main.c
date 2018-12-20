@@ -1,6 +1,6 @@
 #include <stdio.h>
-
-#define SIZE_ARR 2000000
+#include <stdlib.h>
+#include <string.h>
 
 static void swap(int *a, int *b){
     int temp = *a;
@@ -8,7 +8,7 @@ static void swap(int *a, int *b){
     *b = temp;
 }
 
-static void qsort(int arr[], int first, int last)
+static void my_qsort(int arr[], int first, int last)
 {
     if (first < last)
     {
@@ -26,8 +26,8 @@ static void qsort(int arr[], int first, int last)
                 right--;
             }
         } while (left <= right);
-        qsort(arr, first, right);
-        qsort(arr, left, last);
+        my_qsort(arr, first, right);
+        my_qsort(arr, left, last);
     }
 }
 
@@ -35,15 +35,15 @@ int main() {
     int n = 0;
 
     scanf("%d", &n);
-    int arr[SIZE_ARR] = {0};
-
+    int *arr = (int *) malloc(sizeof(int)*n);
+    memset(arr, 0, sizeof(int)*n);
     for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
-    qsort(arr, 0, n - 1);
+    my_qsort(arr, 0, n - 1);
 
     for (int l = 0; l < n; l++)
         printf("%d ", arr[l]);
-
+    free(arr);
     return 0;
 }
