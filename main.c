@@ -8,19 +8,16 @@ static void swap(int *a, int *b){
     *b = temp;
 }
 
-static void my_qsort(int arr[], int first, int last)
-{
+static void my_qsort(int arr[], int first, int last){
     if (first < last)
     {
         int left = first;
         int right = last;
         int  middle = arr[(left + right) / 2];
-        do
-        {
+        do{
             while (arr[left] < middle) left++;
             while (arr[right] > middle) right--;
-            if (left <= right)
-            {
+            if (left <= right){
                 swap(&arr[right], &arr[left]);
                 left++;
                 right--;
@@ -36,7 +33,10 @@ int main() {
 
     scanf("%d", &n);
     int *arr = (int *) malloc(sizeof(int)*n);
-    memset(arr, 0, sizeof(int)*n);
+    if (arr == NULL)
+        return 1;
+
+    memset(arr, 0, sizeof(int)*n);// он с отрицательными не работает, выбрасывает null
     for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
@@ -46,4 +46,6 @@ int main() {
         printf("%d ", arr[l]);
     free(arr);
     return 0;
+
 }
+
